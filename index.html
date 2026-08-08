@@ -1,17 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PlayLizzt</title>
 <style>
-  body{margin:0;background:#000;display:flex;align-items:center;justify-content:center;height:100vh;}
-  video{max-width:100%;max-height:100%;}
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+  }
+
+  body {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  img.bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .overlay {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    padding: 20px;
+  }
+
+  h1 {
+    font-weight: 100;
+    font-size: 100px;
+    margin: 0;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+  }
+
+  h3 {
+    font-weight: 100;
+    margin-top: 20px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+  }
+
+  #startOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 24px;
+    letter-spacing: 1px;
+    transition: opacity 0.4s ease;
+  }
+
+  #startOverlay:hover {
+    background: rgba(0,0,0,0.75);
+  }
 </style>
 </head>
 <body>
-    <h1 style="color:white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:1;font-size:100px;z-index:1;">Time to focus</h1>
-    <h3 style = "z-index:1;position:absolute;top:107%; color:white;font-family:Verdana, Geneva, Tahoma, sans-serif; font-weight:100;">Come on! Stop scrolling! Get to work!</h3>
-    <img src="focus.avif" style="width:100%;position:absolute;">
-    <audio src="Awakened Mind.mp3" autoplay loop></audio>
+
+  <img class="bg" src="focus.avif" alt="focus background">
+
+  <div class="overlay">
+    <h1>Time to focus</h1>
+    <h3>Come on! Stop scrolling! Get to work!</h3>
+  </div>
+
+  <div id="startOverlay">Click anywhere to start</div>
+
+  <audio id="bgm" src="Awakened Mind.mp3" loop preload="auto"></audio>
+
+  <script>
+    const audio = document.getElementById('bgm');
+    const startOverlay = document.getElementById('startOverlay');
+
+    startOverlay.addEventListener('click', () => {
+      audio.play()
+        .then(() => {
+          startOverlay.style.opacity = '0';
+          setTimeout(() => startOverlay.remove(), 400);
+        })
+        .catch((err) => {
+          console.error('Audio playback failed:', err);
+          startOverlay.textContent = 'Playback failed — check console';
+        });
+    });
+
+    audio.addEventListener('error', () => {
+      console.error('Audio failed to load. Check that "Awakened Mind.mp3" is in the same folder as this file.');
+    });
+  </script>
+
 </body>
 </html>
