@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PlayLizzt</title>
-<style>
- *{
-  margin: 0;
-  padding: 0;
- }
- audio {
-  width: 75%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
- }
- img {
-  width: 100%;
-  posiiton: absolute;
-  top: 0;
-  left: 0;
- }
-  
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>PlayLizzt</title>
+ 
+ <!-- Favicon Links -->
+ <link rel="icon" type="image/x-icon" href="./favicon.ico">
+ <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+ <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+ <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+ <link rel="manifest" href="./site.webmanifest">
 
-</style>
+ <style>
+  * {
+   margin: 0;
+   padding: 0;
+  }
+  audio {
+   width: 75%;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 10; /* Ensures the audio controls sit on top of the image */
+  }
+  img {
+   width: 100%;
+   height: 100vh; /* Keeps it full screen height */
+   object-fit: cover; /* Prevents distortion */
+   position: absolute; /* Fixed the typo from 'posiiton' */
+   top: 0;
+   left: 0;
+   z-index: 1;
+  }
+ </style>
 </head>
 <body>
  <audio controls autoplay loop>
-  <source src = "./pianoMusique.mp3">
+  <source src="./pianoMusique.mp3" type="audio/mpeg">
  </audio>
  <img src="./nyc.jpg" alt="bg-img">
 </body>
